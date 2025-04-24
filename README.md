@@ -1,6 +1,6 @@
 ## lldb_mcp
 
-A proper, simple lldb mcp server with minimal dependencies and all functionality! There are only two commands lldb_init and lldb, no need to clutter your tools. Works remarkably well with o4-mini and Gemini 2.5 Pro. You remain fully in control.
+A proper, simple lldb mcp server with minimal dependencies and all functionality! There are only two commands ```lldb_init``` and ```lldb```, no need to clutter your tools. Works remarkably well with o4-mini and Gemini 2.5 Pro. You remain fully in control.
 
 The output is automagically captured, no need to copy paste.
 
