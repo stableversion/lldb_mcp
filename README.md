@@ -22,7 +22,7 @@ cd lldb_mcp && python3 -m venv venv && source venv/bin/activate && pip3 install 
 }
 ```
 ```
-(lldb) command script import /path/to/lldb-mcp/lldb_server.py
+(lldb) command script import /path/to/lldb_mcp/lldb_server.py
 ```
 
 ## Architecture
