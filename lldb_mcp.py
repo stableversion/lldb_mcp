@@ -18,11 +18,19 @@ _file = None
 
 def _ensure_connection():
     global _sock, _file
-    if _file:
-        return
     with _client_lock:
         if _file:
-            return
+            try:
+                # Quick check if connection is alive
+                _sock.getpeername()
+                return
+            except (OSError, socket.error):
+                # Connection is dead, close it
+                _file.close()
+                _sock.close()
+                _file = _sock = None
+                
+        # Create a new connection
         try:
             _sock = socket.create_connection((LLDB_HOST, LLDB_PORT))
             _file = _sock.makefile(mode='rw', encoding='utf-8')
@@ -40,6 +48,10 @@ def init(fullpath: str) -> str:
     """Start the given executable: load file then launch process and stop at entry."""
     if not os.path.isfile(fullpath):
         return f"ERROR: file {fullpath} does not exist"
+    
+    # For seamless restarts, silently discard output.
+    _ = send("target delete --all")
+    
     # load the executable
     out1 = send(f"file {fullpath}")
     if out1.startswith("ERROR"):
