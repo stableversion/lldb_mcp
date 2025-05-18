@@ -43,8 +43,8 @@ class LLDBRequestHandler(socketserver.StreamRequestHandler):
             if not command:
                 continue
             print(f"(mcp) >>> {command}")
-            # reject multiple commands separated by a semicolon
-            if ';' in command:
+            # reject multiple commands separated by a semicolon or newline
+            if ';' in command or '\n' in command:
                 err = 'Error, multiple commands not allowed'
                 print(err)
                 resp = {'command': command, 'output': '', 'error': err}
